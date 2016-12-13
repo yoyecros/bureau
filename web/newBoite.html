@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+
+<form novalidate class="simple-form">
+    <h3> Définition de la nouvelle boite </h3>
+   
+    <input type="submit" ng-click="ctrl.update()" value="Save" />
+    
+    <div ng-show="ctrl.b.id">
+        Création de la nouvelle boite d'identifiant {{ ctrl.b.id }} effectuée.
+    </div>
+    
+    <br/>
+    
+    <a href="#/boites">Retour</a>
+</form>

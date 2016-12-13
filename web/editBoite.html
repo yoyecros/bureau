@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+
+<form novalidate class="simple-form">
+    <h3> Edition de la boite d'identifiant {{ ctrl.b.id }} </h3>
+   
+    Liste des crayons actuels :
+    
+    <table>
+    <tr>
+        <th> Id </th>
+        <th> Couleur </th>
+    <tr ng-repeat='cr in ctrl.b.crayons'>
+        <td> {{ cr.id }} </td>
+        <td> {{ cr.couleur }} </td>
+        <td> <input type="button" value="delete" ng-click="ctrl.deleteCrayonFromBoite(cr)"/> 
+    </tr>
+    </table>
+    
+    Ajouter le crayon  :
+ 
+    <select  ng-model="ctrl.crayonSelect" ng-options="c.id+':'+c.couleur for c in ctrl.crayons">
+                <option>Choisir un crayon</option>
+    </select>
+   
+    
+    <input type="submit" ng-click="ctrl.update()" value="Add" />
+    
+    <br/>
+    <input type="submit" ng-click="ctrl.apply()" value="Appliquer les modifications" />
+</form>
+
+<a href="#/boites">Retour à la liste des boites</a>

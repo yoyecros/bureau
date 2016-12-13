@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+
+<form novalidate class="simple-form">
+    <h3> Définition du nouveau crayon </h3>
+   
+    Name: <input type="text" ng-model="ctrl.cr.couleur" /><br />
+    <input type="submit" ng-click="ctrl.update()" value="Save" />
+    
+    <div ng-show="ctrl.cr.id">
+        Création d'un nouveau crayon d'identifiant {{ ctrl.cr.id }} effectuée.
+    </div>
+    
+    <br/>
+    
+    <a href="#/">Retour</a>
+</form>

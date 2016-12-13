@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<h3>Liste des boites :</h3> 
+
+<div ng-repeat='b in ctrl.boites'>
+    Liste des crayons de la boite numéro {{ b.id}} :  
+    <table>
+        <tr>
+            <th> Id </th>
+            <th> Couleur </th>
+        </tr>
+        <tr ng-repeat='cr in b.crayons'>               
+            <td> {{ cr.id}} </td>
+            <td> {{ cr.couleur}} </td>
+        </tr>  
+    </table>
+    <input type="button" value="Effacer la boite" ng-click="ctrl.delete(b)"/> 
+    <a ng-href="#/boite/edit/{{b.id}}"/> Editer la boite </a>
+<hr/>
+</div>  
+
+<a ng-href="#/boite/new"/> Nouvelle boite </a>
+
+<br/>
+<a ng-href="#/crayons"/> Liste des crayons </a>
