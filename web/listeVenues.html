@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<md-card-title>
+    <md-card-title-text>
+        <span class="md-headline">Rechercher une admission</span>
+    </md-card-title-text>
+</md-card-title>
+
+<md-card-content>
+    
+    <form ng-submit="$event.preventDefault()">
+      <p>Recherchez une admission en saisissant le numéro IEP.</p>
+      <md-autocomplete
+          md-no-cache="false"
+          md-selected-item="ctrl.selectedItem"
+          md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+          md-search-text="ctrl.searchText"
+          md-selected-item-change="ctrl.selectedItemChange(item)"
+          md-items="item in ctrl.querySearch(ctrl.searchText)"
+          md-item-text="item.iep"
+          md-min-length="0"
+          placeholder="Numéro IEP"
+          style="max-width: 500px;">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.iep}}</span>
+          <span style="float: right">{{item.prenom}} {{item.nom}}</span>
+        </md-item-template>
+        <md-not-found>
+          Aucune venue avec le numéro IEP "{{ctrl.searchText}}" trouvée.
+        </md-not-found>
+      </md-autocomplete>
+      <br/>
+
+    </form>
+
+</md-card-content>

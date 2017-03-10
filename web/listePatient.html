@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<md-card-title>
+    <md-card-title-text>
+        <span class="md-headline">Liste des patients</span>
+    </md-card-title-text>
+</md-card-title>
+
+<md-card-content>
+    
+    <md-list style="max-width: 500px;">
+        <md-list-item class="md-2-line" ng-repeat="p in ctrl.patients" ng-href="#/patients/{{p.ipp}}">
+            <img ng-src="img/profil.png" class="md-avatar" alt="{{p.ipp}}" />
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ p.prenom }} {{ p.nom }}</h3>
+                <h4>{{ p.ipp }}</h4>
+            </div>
+        </md-list-item>
+    </md-list>
+    
+</md-card-content>

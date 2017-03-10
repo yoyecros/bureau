@@ -4,34 +4,45 @@
  * and open the template in the editor.
  */
 
-angular.module('monApp', ['ngRoute', 'ngResource']);
+angular.module('monApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMaterialDatePicker', 'md.data.table']);
 
 angular.module('monApp').config(['$routeProvider', function routeConfig($routeProvider) {
         $routeProvider
-                .when('/crayons', {
-                    controller: "CrayonsController as ctrl",
-                    templateUrl: 'listeCrayon.html'
+                .when('/services', {
+                    controller: "ServicesController as ctrl",
+                    templateUrl: 'listeServices.html'
                 })
-                .when('/crayon/edit/:id', {
-                    controller: "CrayonEditController as ctrl",
-                    templateUrl: 'editCrayon.html'
+                .when('/services/:id', {
+                    controller: "ServiceViewController as ctrl",
+                    templateUrl: 'infosService.html'
                 })
-                .when('/crayon/new', {
-                    controller: "CrayonNewController as ctrl",
-                    templateUrl: 'newCrayon.html'
+                .when('/patients', {
+                    controller: "PatientsController as ctrl",
+                    templateUrl: 'listePatient.html'
                 })
-                .when('/boites', {
-                    controller: "BoitesController as ctrl",
-                    templateUrl: 'listeBoites.html'
+                .when('/patients/:id', {
+                    controller: "PatientViewController as ctrl",
+                    templateUrl: 'infosPatient.html'
                 })
-                .when('/boite/edit/:id', {
-                    controller: "BoiteEditController as ctrl",
-                    templateUrl: 'editBoite.html'
+                .when('/venues', {
+                    controller: "VenuesController as ctrl",
+                    templateUrl: 'listeVenues.html'
                 })
-                .when('/boite/new', {
-                    controller: "BoiteNewController as ctrl",
-                    templateUrl: 'newBoite.html'
+                .when('/venues/:id', {
+                    controller: "VenueViewController as ctrl",
+                    templateUrl: 'infosVenue.html'
                 })
-                .otherwise({redirectTo: '/crayons'});
+                .when('/mouvement/new', {
+                    controller: "MouvementNewController as ctrl",
+                    templateUrl: 'newMouvement.html'
+                })
+                .when('/mouvement/edit/:id', {
+                    controller: "MouvementEditController as ctrl",
+                    templateUrl: 'editMouvement.html'
+                })
+                .when('/menu', {
+                    templateUrl: 'menu.html'
+                })
+                .otherwise({redirectTo: '/menu'});
     }]);
 

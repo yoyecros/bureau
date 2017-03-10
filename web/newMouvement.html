@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+
+<form novalidate class="simple-form">
+    <h3> Définition du nouveau mouvement </h3>
+   
+    Date : <input type="text" ng-model="ctrl.m.date" /><br />
+    Service : <input type="text" ng-model="ctrl.m.service.libelle" /><br />
+    Chambre : <input type="text" ng-model="ctrl.m.chambre.numero" /><br />
+    Lit : <input type="text" ng-model="ctrl.m.lit.numero" /><br />
+    Type : <input type="text" ng-model="ctrl.m.type" /><br />
+    <input type="submit" ng-click="ctrl.update()" value="Save" />
+    
+    <div ng-show="ctrl.m.id">
+        Création d'un nouveau mouvement d'identifiant {{ ctrl.m.id }} effectuée.
+    </div>
+    
+    <br/>
+    
+    <a href="#/">Retour</a>
+</form>

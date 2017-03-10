@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<md-card-title>
+    <md-card-title-text>
+        <span class="md-headline">Liste des services</span>
+    </md-card-title-text>
+</md-card-title>
+
+<md-card-content>
+    
+    <div layout="row" layout-padding layout-wrap layout-margin ng-cloak layout-align="space-around">
+        <div class="service" md-whiteframe="{{heightA}}" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center;"
+          ng-init="heightA = 3" ng-mouseenter="heightA = 8" ng-mouseleave="heightA = 3" ng-repeat="s in ctrl.services" ng-click="ctrl.goto(s.numero)">
+            <h2 style="text-align: center;">{{s.libelle}}</h2>
+        </div>
+    </div>
+    
+    <style type="text/css">
+        div.service {
+            cursor: pointer;
+        }
+    </style>
+    
+</md-card-content>

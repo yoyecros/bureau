@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+    <div layout="row" layout-padding layout-wrap layout-margin ng-cloak layout-align="space-around">
+        <div class="patients menu" md-whiteframe="{{heightA}}" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center;"
+          ng-init="heightA = 3" ng-mouseenter="heightA = 8" ng-mouseleave="heightA = 3">
+            <h2 style="text-align: center;">Liste des patients</h2>
+        </div>
+        <div class="admissions menu" md-whiteframe="{{heightB}}" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center;"
+          ng-init="heightB = 3" ng-mouseenter="heightB = 8" ng-mouseleave="heightB = 3">
+            <h2 style="text-align: center;">Rechercher une admission</h2>
+        </div>
+        <div class="UF menu" md-whiteframe="{{heightC}}" style="width: 250px; height: 250px; display: flex; align-items: center; justify-content: center;"
+          ng-init="heightC = 3" ng-mouseenter="heightC = 8" ng-mouseleave="heightC = 3">
+            <h2 style="text-align: center;">Plan d'occupation des UF</h2>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        $(".patients").on("click", function() {
+            window.location = "#/patients";
+        });
+        $(".admissions").on("click", function() {
+            window.location = "#/venues";
+        });
+        $(".UF").on("click", function() {
+            window.location = "#/services";
+        });
+    </script>
+    
+    <style type="text/css">
+        md-card {
+            background-color: transparent;
+            box-shadow: none;
+        }
+        div.menu {
+            background-color: white;
+            cursor: pointer;
+        }
+    </style>

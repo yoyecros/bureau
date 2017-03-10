@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<md-card-title>
+    <md-card-title-text>
+        <span class="md-headline">Parcours du patient {{ctrl.p.prenom}} {{ctrl.p.nom}} (IPP {{ctrl.p.ipp}})</span>
+    </md-card-title-text>
+</md-card-title>
+
+<md-card-content>
+    
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span>Liste des venues</span>
+        </div>
+    </md-toolbar>
+    <md-table-container>
+        <table md-table md-row-select="true" ng-model="selected" md-progress="promise">
+          <thead md-head md-order="query.order">
+            <tr md-row>
+              <th md-column md-order-by="iep">IEP</th>
+              <th md-column md-order-by="mouvements[0].date">Date</th>
+              <th md-column md-order-by="mouvements[0].service.libelle">Service</th>
+              <th md-column md-order-by="v.mouvements[v.mouvements.length - 1].entree">Status</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row md-select="v" md-on-select="redirect" md-auto-select="true" md-select-id="IEP" ng-repeat="v in ctrl.p.venues | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+              <td md-cell></td>
+              <td md-cell>{{v.iep}}</td>
+              <td md-cell>{{v.mouvements[0].date | date:"dd/mm/yyyy 'à' hh:mm"}}</td>
+              <td md-cell>{{v.mouvements[0].service.libelle}}</td>
+              <td md-cell>{{v.mouvements[v.mouvements.length - 1].entree == true ? 'En cours' : 'Terminée'}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </md-table-container>
+    
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{ctrl.p.venues.length}}" md-page-select></md-table-pagination>
+    
+<style type="text/css">
+    .md-checkbox-cell {
+        display: none;
+    }
+    .md-cell {
+        cursor: pointer;
+    }
+</style>
+
+</md-card-content>

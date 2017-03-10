@@ -15,59 +15,86 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import org.hibernate.annotations.Cascade;
 
 /**
  *
- * @author Nicolas Singer <Nicolas.Singer@gmail.com>
+ * @author Yohann Cros
  */
 @Entity
-public class Boite implements Serializable {
+public class Patient implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     
+    @Column
+    private String ipp;
     
-    /* l'annotation cascade = CascadeType.MERGE garantit que la mise à jour de l'objet
-    se fera en mettant aussi à jour ses sous-objets. Par contre l'effacement de l'objet
-    n'effacera pas ses sous-objets. Si on souhaite cela il faut mettre cascade = CascadeType.ALL.
-    */ 
+    @Column
+    private String nom;
+    
+    @Column
+    private String prenom;
+
     @Column
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    List<Crayon> crayons;
-
-    public List<Crayon> getCrayons() {
-        return crayons;
-    }
-
-    public void setCrayons(List<Crayon> crayons) {
-        this.crayons = crayons;
-    }
+    List<Venue> venues;
     
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIpp() {
+        return ipp;
+    }
+
+    public void setIpp(String ipp) {
+        this.ipp = ipp;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public List<Venue> getVenues() {
+        return venues;
+    }
+
+    public void setVenues(List<Venue> venues) {
+        this.venues = venues;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) id;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Boite)) {
+        if (!(object instanceof Patient)) {
             return false;
         }
-        Boite other = (Boite) object;
-        if (this.id != other.id) {
+        Patient other = (Patient) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -75,7 +102,7 @@ public class Boite implements Serializable {
 
     @Override
     public String toString() {
-        return "bureau.Boite[ id=" + id + " ]";
+        return "bureau.Patient[ id=" + id + " ]";
     }
     
 }

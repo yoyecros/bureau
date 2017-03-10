@@ -32,88 +32,211 @@ public class RestServices {
     public RestServices() {
         serv = new Services(DatabaseUtils.fact());
     }
-
+    
+    /** Patients **/
 
     @GET
-    @Path("crayons/{id}")
+    @Path("patients/{ipp}")
     @Produces("application/json")
-    public Crayon getCrayons(@PathParam("id") int id) {
-        return serv.getCrayonsById(id);
+    public Patient getPatient(@PathParam("ipp") String ipp) {
+        return serv.getPatientByIPP(ipp);
     }
     
     @GET
-    @Path("crayons")
+    @Path("patients")
     @Produces("application/json")
-    public List<Crayon> getAllCrayons(@DefaultValue("") @QueryParam("type") String type ) {
-        if (type.equals("sansboites"))
-            return serv.getAllCrayonsSansBoite();
-        else return serv.getAllCrayons();
-    }
-
-    
-    
-    @POST
-    @Path("crayons")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces("application/json")
-    public Crayon newCrayon(Crayon cr) {
-        serv.newCrayon(cr);
-        System.out.println("id:"+cr.getId());
-        return cr;
+    public List<Patient> getAllPatients() {
+        return serv.getAllPatients();
     }
     
     @POST
-    @Path("crayons/{id}")
+    @Path("patients")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editCrayon(Crayon cr) {
-        serv.editCrayon(cr);
-        return Response.status(200).entity(cr).build();
+    @Produces("application/json")
+    public Patient newPatient(Patient p) {
+        serv.newPatient(p);
+        System.out.println("id:"+p.getId());
+        return p;
+    }
+    
+    @POST
+    @Path("patients/{ipp}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editPatient(Patient p) {
+        serv.editPatient(p);
+        return Response.status(200).entity(p).build();
     }
     
     @DELETE
-    @Path("crayons/{id}")
-    public Response removeCrayon(@PathParam("id") int id) {
-        serv.removeCrayon(id);
+    @Path("patients/{ipp}")
+    public Response removePatient(@PathParam("ipp") String ipp) {
+        Patient p = serv.getPatientByIPP(ipp);
+        serv.removePatient(p.getId());
         return Response.status(200).build();
     }
-
+    
+    /** Venues **/
+    
     @GET
-    @Path("boites")
+    @Path("venues/{iep}")
     @Produces("application/json")
-    public List<Boite> getBoites() {
-        return serv.getAllBoites();
+    public Venue getVenue(@PathParam("iep") String iep) {
+        return serv.getVenueByIEP(iep);
     }
     
     @GET
-    @Path("boites/{id}")
+    @Path("venues/{iep}/Patient")
     @Produces("application/json")
-    public Boite getBoite(@PathParam("id") int id) {
-        return serv.getBoiteById(id);
+    public Patient getPatientByVenue(@PathParam("iep") String iep) {
+        return serv.getPatientByVenue(iep);
+    }
+    
+    @GET
+    @Path("venues/{iep}/mouvements")
+    @Produces("application/json")
+    public List<Mouvement> getMouvementsByVenue(@PathParam("iep") String iep) {
+        return serv.getVenueByIEP(iep).getMouvements();
+    }
+    
+    @GET
+    @Path("venues/{iep}/mouvements/{id}")
+    @Produces("application/json")
+    public Mouvement getMouvementByVenue(@PathParam("iep") String iep, @PathParam("id") long id) {
+        return serv.getMouvementById(id);
+    }
+    
+    @GET
+    @Path("venues")
+    @Produces("application/json")
+    public List<Venue> getAllVenues() {
+        return serv.getAllVenues();
     }
     
     @POST
-    @Path("boites")
+    @Path("venues")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("application/json")
-    public Boite newBoite(Boite b) {
-        return serv.newBoite(b);
-
+    public Venue newVenue(Venue v) {
+        serv.newVenue(v);
+        System.out.println("id:"+v.getId());
+        return v;
     }
     
     @POST
-    @Path("boites/{id}")
+    @Path("venues/{iep}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response editBoite(Boite b) {
-        serv.updateBoite(b);
-        return Response.status(200).entity(b).build();
+    public Response editVenue(Venue v) {
+        serv.editVenue(v);
+        return Response.status(200).entity(v).build();
     }
     
     @DELETE
-    @Path("boites/{id}")
-    public Response removeBoite(@PathParam("id") int id) {
-        serv.deleteBoite(id);
+    @Path("venues/{iep}")
+    public Response removeVenue(@PathParam("iep") String iep) {
+        Venue v = serv.getVenueByIEP(iep);
+        serv.removeVenue(v.getId());
+        return Response.status(200).build();
+    }
+    
+    @DELETE
+    @Path("venues/{iep}/mouvements/{id}")
+    public Response removeMouvement(@PathParam("iep") String iep, @PathParam("id") long id) {
+        Mouvement m = serv.getMouvementById(id);
+        serv.getVenueByIEP(iep).getMouvements().remove(serv.getVenueByIEP(iep).getMouvements().indexOf(m));
+        serv.removeMouvement(id);
+        return Response.status(200).build();
+    }
+    
+    @POST
+    @Path("venues/{iep}/mouvements")
+    public Response addMouvement(@PathParam("iep") String iep, Mouvement m) {
+        serv.newMouvement(m);
+        serv.addMouvementToVenue(m, serv.getVenueByIEP(iep));
+        return Response.status(200).build();
+    }
+    
+    /** Mouvements **/
+    
+    @GET
+    @Path("mouvements/{id}")
+    @Produces("application/json")
+    public Mouvement getMouvement(@PathParam("id") long id) {
+        return serv.getMouvementById(id);
+    }
+    
+    @GET
+    @Path("mouvements")
+    @Produces("application/json")
+    public List<Mouvement> getAllMouvements() {
+        return serv.getAllMouvements();
+    }
+    
+    @POST
+    @Path("mouvements")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    public Mouvement newMouvement(Mouvement m) {
+        serv.newMouvement(m);
+        return m;
+    }
+    
+    @POST
+    @Path("mouvements/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editMouvement(Mouvement m) {
+        serv.editMouvement(m);
+        return Response.status(200).entity(m).build();
+    }
+    
+    @DELETE
+    @Path("mouvements/{id}")
+    public Response removeMouvement(@PathParam("id") long id) {
+        Mouvement m = serv.getMouvementById(id);
+        serv.getVenueByMouvement(id).getMouvements().remove(m);
+        serv.removeMouvement(id);
+        return Response.status(200).build();
+    }
+    
+    /** Services **/
+    
+    @GET
+    @Path("services/{num}")
+    @Produces("application/json")
+    public Service getService(@PathParam("num") String num) {
+        return serv.getServiceByNumero(num);
+    }
+    
+    @GET
+    @Path("services")
+    @Produces("application/json")
+    public List<Service> getAllServices() {
+        return serv.getAllServices();
+    }
+    
+    @POST
+    @Path("services")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    public Service newPatient(Service s) {
+        serv.newService(s);
+        System.out.println("id:"+s.getId());
+        return s;
+    }
+    
+    @POST
+    @Path("services/{num}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editService(Service s) {
+        serv.editService(s);
+        return Response.status(200).entity(s).build();
+    }
+    
+    @DELETE
+    @Path("services/{num}")
+    public Response removeService(@PathParam("num") String num) {
+        Service s = serv.getServiceByNumero(num);
+        serv.removePatient(s.getId());
         return Response.status(200).build();
     }
 
-   
 }

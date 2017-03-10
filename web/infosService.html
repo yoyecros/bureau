@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<md-card-title>
+    <md-card-title-text>
+        <span class="md-headline">Plan d'occupation du service {{ctrl.s.libelle}}</span>
+    </md-card-title-text>
+</md-card-title>
+
+<md-card-content>
+    <div layout="row" layout-padding layout-wrap layout-margin ng-cloak layout-align="space-around">
+        <fieldset ng-repeat="c in ctrl.s.chambres" style="text-align: center;">
+            <legend><strong>Chambre {{c.numero}}</strong></legend>
+            <div ng-repeat="l in c.lits" style="display: inline-block; width: 150px;">
+                <strong>Lit {{l.numero}}</strong> ({{ l.occupe == true ? 'Occupé' : 'Libre' }})<br/>
+                <img ng-src="{{l.occupe == true && 'img/occupe.png' || 'img/libre.jpg'}}" style="width: 100px;"/><br/>
+            </div>
+        </fieldset>
+    </div>
+</md-card-content>

@@ -23,6 +23,10 @@ public class DatabaseUtils {
          return fact; 
    }
     
+    static public void close() {
+        if (fact != null) fact.close();
+    }
+    
 }
     
   
