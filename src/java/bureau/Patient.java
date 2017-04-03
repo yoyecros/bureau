@@ -37,7 +37,7 @@ public class Patient implements Serializable {
     private String prenom;
 
     @Column
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany
     List<Venue> venues;
     
     public Long getId() {

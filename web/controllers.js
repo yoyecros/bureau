@@ -128,15 +128,21 @@ angular.module('monApp')
                 this.cancel = function() {
                     this.m = new Mouvements();
                     this.v.$promise.then(function(result) {
-                    if( result.mouvements[result.mouvements.length - 1].entree) {
-                        self.m.entree = false;
-                        self.m.service = result.mouvements[result.mouvements.length - 1].service;
-                        self.m.chambre = result.mouvements[result.mouvements.length - 1].chambre;
-                        self.m.lit = result.mouvements[result.mouvements.length - 1].lit;
-                    }
-                    else
-                        self.m.entree = true;
-                });
+                        if( result.mouvements[result.mouvements.length - 1].entree) {
+                            self.m.entree = false;
+                            self.m.service = result.mouvements[result.mouvements.length - 1].service;
+                            self.m.chambre = result.mouvements[result.mouvements.length - 1].chambre;
+                            self.m.lit = result.mouvements[result.mouvements.length - 1].lit;
+                        }
+                        else
+                            self.m.entree = true;
+                    });
+                }
+                this.cloture = function() {
+                    this.v.est_finie = true;
+                    var url = '/bureau/webresources/generic/venues/'+this.v.iep;
+                    $window.location.reload();
+                    return $http.post(url, this.v);
                 }
             }
         ])

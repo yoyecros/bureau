@@ -31,7 +31,7 @@ public class Chambre implements Serializable {
     private String numero;
     
     @Column
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany
     List<Lit> lits;
     
     public Long getId() {

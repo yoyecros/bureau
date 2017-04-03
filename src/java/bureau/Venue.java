@@ -31,8 +31,11 @@ public class Venue implements Serializable {
     private String iep;
     
     @Column
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany
     List<Mouvement> mouvements;
+    
+    @Column
+    private boolean est_finie;
     
     public Long getId() {
         return id;
@@ -56,6 +59,14 @@ public class Venue implements Serializable {
 
     public void setMouvements(List<Mouvement> mouvements) {
         this.mouvements = mouvements;
+    }
+
+    public boolean isEst_finie() {
+        return est_finie;
+    }
+
+    public void setEst_finie(boolean est_finie) {
+        this.est_finie = est_finie;
     }
 
     @Override

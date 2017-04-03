@@ -44,7 +44,7 @@ public class Mouvement implements Serializable {
     @Column
     private Timestamp date;
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name="SERVICE_ID")
     private Service service;
 

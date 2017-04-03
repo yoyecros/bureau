@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <md-card-title>
     <md-card-title-text>
-        <span class="md-headline">Détail de la venue IEP {{ctrl.v.iep}}</span>
+        <span class="md-headline">Détail de la venue IEP {{ctrl.v.iep}} ({{ctrl.v.est_finie == false ? 'En cours' : 'Terminée'}})</span>
     </md-card-title-text>
 </md-card-title>
 
@@ -30,7 +30,7 @@ Patient : <a ng-href="#/patients/{{ctrl.p.ipp}}">{{ ctrl.p.prenom }} {{ ctrl.p.n
           <td md-cell>{{ m.service.libelle }}</td>
           <td md-cell><span class="numChambre">{{ m.chambre.numero }}</span><span class="numLit">{{ m.lit.numero }}</span></td>
           <td md-cell class="type">{{ m.entree == true ? 'Entrée' : 'Sortie' }}</td>
-          <td md-cell><md-button class="md-icon-button md-primary edit" aria-label="Modifier" ng-click="ctrl.edit(m)"><md-icon>edit</md-icon></md-button> <md-button class="md-icon-button md-accent delete" aria-label="Supprimer" ng-click="ctrl.deleteMouvement(m)"><md-icon>delete</md-icon></md-button></td>
+          <td md-cell><md-button class="md-icon-button md-primary edit" aria-label="Modifier" ng-click="ctrl.edit(m)" ng-disabled="ctrl.v.est_finie"><md-icon>edit</md-icon></md-button> <md-button class="md-icon-button md-accent delete" aria-label="Supprimer" ng-click="ctrl.deleteMouvement(m)" ng-disabled="ctrl.v.est_finie"><md-icon>delete</md-icon></md-button></td>
         </tr>
       </tbody>
     </table>
@@ -38,7 +38,9 @@ Patient : <a ng-href="#/patients/{{ctrl.p.ipp}}">{{ ctrl.p.prenom }} {{ ctrl.p.n
 
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{ctrl.v.mouvements.length}}" md-page-select></md-table-pagination>
 
-<md-button class="md-raised md-primary add">Ajouter un mouvement</md-button>
+<md-button class="md-raised md-primary add" ng-disabled="ctrl.v.est_finie">Ajouter un mouvement</md-button>
+
+<md-button class="md-raised md-primary" ng-click="ctrl.cloture()" ng-disabled="ctrl.v.est_finie">Clôturer la venue</md-button>
 
 <md-card class="form" style="max-width: 400px; display: none;">
     <md-toolbar>

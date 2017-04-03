@@ -19,7 +19,7 @@
               <th md-column md-order-by="iep">IEP</th>
               <th md-column md-order-by="mouvements[0].date">Date</th>
               <th md-column md-order-by="mouvements[0].service.libelle">Service</th>
-              <th md-column md-order-by="v.mouvements[v.mouvements.length - 1].entree">Status</th>
+              <th md-column md-order-by="est_finie">Status</th>
             </tr>
           </thead>
           <tbody md-body>
@@ -28,7 +28,7 @@
               <td md-cell>{{v.iep}}</td>
               <td md-cell>{{v.mouvements[0].date | date:"dd/mm/yyyy 'à' hh:mm"}}</td>
               <td md-cell>{{v.mouvements[0].service.libelle}}</td>
-              <td md-cell>{{v.mouvements[v.mouvements.length - 1].entree == true ? 'En cours' : 'Terminée'}}</td>
+              <td md-cell>{{v.est_finie == false ? 'En cours' : 'Terminée'}}</td>
             </tr>
           </tbody>
         </table>

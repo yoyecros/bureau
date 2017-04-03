@@ -33,7 +33,7 @@ public class Service implements Serializable {
     private String libelle;
 
     @Column
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany
     List<Chambre> chambres;
     
     public Long getId() {
